@@ -15,12 +15,12 @@ function ShowPage() {
     )
   }, [id, backendId])
 
-  console.log(typeof backendId)
+  // console.log(typeof backendId)
 
   return (
     <div>
       <h1>Comments: {id}</h1>
-      <div>{backendId}</div>
+      <h2>{backendId}</h2>
       <a href='/'>Back to Data</a>
     </div>
   );
