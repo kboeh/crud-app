@@ -1,27 +1,54 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 
 function ShowPage() {
   const {id} = useParams();
-  const [backendId, setBackendId] = useState([''])
+  const [comment, setComment] = useState(['']);
+  const navigate = useNavigate();
 
   useEffect (() => {
     fetch(`/comments/${id}`).then(
       response => response.json()
     ).then (
       data => {
-      setBackendId(data.comment.comment)
+        setComment(data.comment.comment)
       }
     )
-  }, [id, backendId])
+  }, [id, comment])
 
-  // console.log(typeof backendId)
+  let deleteComment = () => {
+    // sending PATCH request with fetch API in javascript
+    fetch(`/comments/${id}`, {
+      headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+      },
+      method: "DELETE",	
+    
+      // Fields that to be updated are passed
+      body: JSON.stringify({
+      comment: comment,
+      })
+    })
+    .then(function (response) {
+    return response.json();
+    })
+    .then(function (data) {
+    console.log(data)
+    })
+    
+    navigate('/');
+      
+  };
 
   return (
     <div>
       <h1>Comments: {id}</h1>
-      <h2>{backendId}</h2>
+      <h2>{comment}</h2>
       <a href='/'>Back to Data</a>
+      <form>
+          <button onClick={deleteComment}>delete</button>
+        </form>
     </div>
   );
 }

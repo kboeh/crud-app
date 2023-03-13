@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 // import axios from 'axios';
 
 function EditPage() {
   const {id} = useParams();
   const [initial, setInitial] = useState([''])
   const [edit, setEdit] = useState([''])
+  const navigate = useNavigate();
 
   useEffect (() => {
     fetch(`/comments/${id}`).then(
@@ -32,45 +33,16 @@ function EditPage() {
       comment: edit,
       })
     })
-      .then(function (response) {
+    .then(function (response) {
+    return response.json();
+    })
+    .then(function (data) {
+    console.log(data)
+    })
     
-      // console.log(response);
-      return response.json();
-      })
-      .then(function (data) {
-      console.log(data);
-      window.location.href = {id};
-      });
+    navigate('/');
       
   };
-
-  //   const userToPatch = {
-  //     comment: 'foo',
-  //   };
-
-  // const textChange = async () => {
-  //   const response = await axios
-  //       .patch(`/comments/${id}`, userToPatch)
-  //       .catch((error) => console.log('Error: ', error));
-  //       console.log(response)
-  //   if (response && response.data) {
-  //       console.log(response);
-  //       console.log(response.data);
-  //   }
-  // };
-
-  
-  // const textChange = () => {
-  //   let data = {edit}
-  //   console.log(data);
-  //   axios
-  //   .patch(`/comments/${id}`, data)
-  //   .then(response => {
-  //     console.log(response)
-  //   })
-  // }
-  
-  // console.log(edit)
 
   return (
     <div>
