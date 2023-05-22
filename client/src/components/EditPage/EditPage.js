@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, useNavigate} from "react-router-dom";
-// import axios from 'axios';
 
 function EditPage() {
   const {id} = useParams();
@@ -20,7 +19,7 @@ function EditPage() {
   console.log(edit)
   
   let textChange = () => {
-    // sending PATCH request with fetch API in javascript
+    // sending PATCH request with fetch API
     fetch(`/comments/${id}`, {
       headers: {
       Accept: "application/json",

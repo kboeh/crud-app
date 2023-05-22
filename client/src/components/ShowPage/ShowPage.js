@@ -17,7 +17,7 @@ function ShowPage() {
   }, [id, comment])
 
   let deleteComment = () => {
-    // sending PATCH request with fetch API in javascript
+    // sending PATCH request with fetch API
     fetch(`/comments/${id}`, {
       headers: {
       Accept: "application/json",
@@ -43,12 +43,12 @@ function ShowPage() {
 
   return (
     <div>
-      <h1>Comments: {id}</h1>
-      <h2>{comment}</h2>
+      <h1>Comment ID:</h1>
+      <h2>{id}</h2>
       <a href='/'>Back to Data</a>
       <form>
-          <button onClick={deleteComment}>delete</button>
-        </form>
+        <button onClick={deleteComment}>delete</button>
+      </form>
     </div>
   );
 }

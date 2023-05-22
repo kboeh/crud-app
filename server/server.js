@@ -1,21 +1,23 @@
 const express = require('express');
 const app = express();
+const {v4: uuid} = require('uuid');
+
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 let comments = [
     {
-        id: 1,
+        id: uuid(),
         username: 'Todd',
         comment: 'yo yo yo!'
     },
     {
-        id: 2,
+        id: uuid(),
         username: 'Melly',
         comment: 'si si si!'
     },
     {
-        id: 3,
+        id: uuid(),
         username: 'Jojo',
         comment: 'que lo que es!?'
     }
@@ -30,16 +32,16 @@ res.json({comments})
 //post new comments and redirect back to home page
 app.post('/comments', (req, res) => {
      const {username, comment} = req.body;
-    comments.push({username, comment})
-    // console.log(req.body)
+    comments.push({ username, comment, id: uuid() })
+    console.log(req.body)
     res.redirect('/'); 
 })
 
 //display id and comment
 app.get('/comments/:id', (req, res) => {
     const { id } = req.params; 
-    //find the correct id. Will return a string so we use parseInt
-    const comment = comments.find(c => c.id === parseInt(id))
+    //find the correct id
+    const comment = comments.find(c => c.id === id)
     res.json({comment})
     // console.log(comment) 
 })
